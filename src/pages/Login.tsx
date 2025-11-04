@@ -1,5 +1,8 @@
 import React, { FormEvent, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { isValidEmail } from '../utils/valids'
+import { ToastContainer, toast } from 'react-toastify';
+import { userLogin } from '../services/userService';
 
 function Login() {
 
@@ -7,7 +10,24 @@ function Login() {
   const [password, setPassword] = useState('')
   const sendLogin = (evt: FormEvent) => {
     evt.preventDefault()
-    console.log(email, password)
+    if (!isValidEmail(email)) {
+      toast.error('Email format fail!')
+    }else if(password.length < 5) {
+      toast.error('Password fail')
+    }else {
+      // service call
+      userLogin(email, password)
+      .then(res => {
+        // servisten 200 döndü, servis başarılı oldu
+        const dt = res.data
+        console.log(dt.data.access_token)
+      })
+      .catch(err => {
+        // servis hatalı ise
+        toast.error('Incorrect email or password')
+      })
+    }
+
   }
 
   return (
@@ -31,6 +51,7 @@ function Login() {
         </div>
         <div className='col-sm-4'></div>
       </div>
+      <ToastContainer />
     </>
   )
 }
