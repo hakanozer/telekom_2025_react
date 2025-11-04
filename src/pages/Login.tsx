@@ -1,13 +1,16 @@
 import React, { FormEvent, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { isValidEmail } from '../utils/valids'
 import { ToastContainer, toast } from 'react-toastify';
 import { userLogin } from '../services/userService';
+import { apiConfig } from '../services/apiConfig';
 
 function Login() {
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const navigate = useNavigate()
+
+  const [email, setEmail] = useState('hakanozer02@gmail.com')
+  const [password, setPassword] = useState('123456')
   const sendLogin = (evt: FormEvent) => {
     evt.preventDefault()
     if (!isValidEmail(email)) {
@@ -20,7 +23,11 @@ function Login() {
       .then(res => {
         // servisten 200 döndü, servis başarılı oldu
         const dt = res.data
-        console.log(dt.data.access_token)
+        localStorage.setItem('token', dt.data.access_token)
+        apiConfig.defaults.headers.common['Authorization'] = `Bearer ${dt.data.access_token}`
+        // redirect
+        // window.location.href = '/products'
+        navigate('/products', {replace: true})
       })
       .catch(err => {
         // servis hatalı ise
