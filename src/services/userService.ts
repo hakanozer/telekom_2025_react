@@ -12,3 +12,7 @@ export const userLogin = (email: string, password: string) => {
 export const userProfile = () => {
     return apiConfig.get<iProfile>('profile/me')
 }
+
+export const userLogout = () => {
+    return apiConfig.post('auth/logout')
+}

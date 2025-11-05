@@ -1,6 +1,20 @@
 import React from 'react'
+import { userLogout } from '../services/userService'
+import { useNavigate } from 'react-router-dom'
 
 function Navbar(props: {name: string}) {
+
+  const navigate = useNavigate()  
+  const logout = () => {
+    const answer = window.confirm("Are you sure logout!")
+    if (answer) {
+        userLogout().then(res => {
+            localStorage.removeItem('token')
+            navigate('/', {replace: true})
+        })
+    }
+  }
+    
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
     <div className="container-fluid">
@@ -18,13 +32,13 @@ function Navbar(props: {name: string}) {
             </li>
             <li className="nav-item dropdown">
             <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
+                Profile
             </a>
             <ul className="dropdown-menu">
                 <li><a className="dropdown-item" href="#">Action</a></li>
                 <li><a className="dropdown-item" href="#">Another action</a></li>
                 <li><hr className="dropdown-divider"/></li>
-                <li><a className="dropdown-item" href="#">Something else here</a></li>
+                <li><a onClick={logout} role='button' className="dropdown-item">Logout</a></li>
             </ul>
             </li>
             <li className="nav-item">
