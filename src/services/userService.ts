@@ -1,4 +1,4 @@
-import { iUser } from "../models/iUser"
+import { iProfile, iUser } from "../models/iUser"
 import { apiConfig } from "./apiConfig"
 
 export const userLogin = (email: string, password: string) => {
@@ -7,4 +7,8 @@ export const userLogin = (email: string, password: string) => {
         password: password
     }
     return apiConfig.post<iUser>('auth/login', sendObj)
+}
+
+export const userProfile = () => {
+    return apiConfig.get<iProfile>('profile/me')
 }
