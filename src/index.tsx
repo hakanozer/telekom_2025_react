@@ -7,6 +7,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Products from './pages/Products';
 import Control from './pages/Control';
+import Likes from './pages/Likes';
+
 
 const routes = 
 <BrowserRouter>
@@ -14,6 +16,7 @@ const routes =
     <Route path='/' element={<Login />} />
     <Route path='/register' element={<Register />} />
     <Route path='/products' element={<Control item={<Products />} />} />
+    <Route path='/likes' element={<Control item={<Likes />} />} />
   </Routes>
 </BrowserRouter>
 
