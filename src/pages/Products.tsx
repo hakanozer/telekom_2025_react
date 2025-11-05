@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { allProduct } from '../services/productService'
 import { iProduct } from '../models/iAllProduct'
+import ProductItem from '../components/ProductItem'
 
 function Products() {
 
@@ -17,9 +18,13 @@ function Products() {
   return (
     <>
       <h2>Products</h2>
-      {proArr.map((item, index) => 
-        <h3>{item.title}</h3>
-      )}
+      <div className='row'>
+        {proArr.map((item, index) =>
+          <div className='col-sm-12 col-md-6 col-lg-3' key={index}>
+            <ProductItem item={item}/>
+          </div>
+        )}
+      </div>
     </>
   )
 }

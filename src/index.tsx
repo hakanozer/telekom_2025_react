@@ -8,6 +8,8 @@ import Register from './pages/Register';
 import Products from './pages/Products';
 import Control from './pages/Control';
 import Likes from './pages/Likes';
+import ProductDetail from './pages/ProductDetail';
+
 
 
 const routes = 
@@ -17,6 +19,7 @@ const routes =
     <Route path='/register' element={<Register />} />
     <Route path='/products' element={<Control item={<Products />} />} />
     <Route path='/likes' element={<Control item={<Likes />} />} />
+    <Route path='/productDetail/:id' element={<Control item={<ProductDetail />} />} />
   </Routes>
 </BrowserRouter>
 
