@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { singleProduct } from '../services/productService'
 import { iSingleProduct } from '../models/iAllProduct'
+import { likesControl, likeStoreAddRemove } from '../utils/likesStore'
 
 function ProductDetail() {
   
@@ -14,6 +15,7 @@ function ProductDetail() {
     const id = params.id
     if (id) {
         // service call
+        likesStoreControl(id)
         singleProduct(id).then(res => {
           const dt = res.data
           setItem(dt)
@@ -29,9 +31,16 @@ function ProductDetail() {
     setLikeIcon(!likeIcon)
     const id = params.id
     if (id) {
-      console.log("add/remove ", id)
+      likeStoreAddRemove(id)
+      likesStoreControl(id)
     }
   }
+
+  const likesStoreControl = (id: string) => {
+    const likesStatus = likesControl(id)
+    setLikeIcon(likesStatus)
+  }
+
   
 
   return (
