@@ -5,6 +5,7 @@ import { iSingleProduct } from '../models/iAllProduct'
 
 function ProductDetail() {
   
+  const [likeIcon, setLikeIcon] = useState(false)
   const [item, setItem] = useState<iSingleProduct>()
   const [mainImage, setMainImage] = useState<string | undefined>()
   const navigate = useNavigate()
@@ -23,6 +24,14 @@ function ProductDetail() {
         })
     }
   }, [params.id, navigate])
+
+  const likeAddRemove = () => {
+    setLikeIcon(!likeIcon)
+    const id = params.id
+    if (id) {
+      console.log("add/remove ", id)
+    }
+  }
   
 
   return (
@@ -52,6 +61,8 @@ function ProductDetail() {
                 </div>
 
                 <p className="flex-grow-1">{item.data.description}</p>
+
+                <i onClick={likeAddRemove} className={ likeIcon ? 'bi bi-suit-heart-fill fs-3 text-danger' : 'bi bi-suit-heart fs-3 text-danger'} role='button'></i>
 
                 <ul className="list-group list-group-flush mb-3">
                   <li className="list-group-item">Stock: {item.data.stock}</li>
