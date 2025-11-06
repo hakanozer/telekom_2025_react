@@ -1,7 +1,6 @@
 export const likeStoreAddRemove = (id: string) => {
-    const stLikes = likesArrControl()
-    let arr:string[] = []
-    if (stLikes) {
+    let arr = likesArrControl()
+    if (arr) {
         // var kontrol yap
         const index = arr.findIndex(item => item === id)
         if (index === -1) {
@@ -28,7 +27,7 @@ export const likesControl = (id: string) => {
     return false
 }
 
-const likesArrControl = () =>  {
+export const likesArrControl = () =>  {
     let stLikes = localStorage.getItem('likes')
     let arr:string[] | null = []
     if (stLikes) {
