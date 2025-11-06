@@ -20,7 +20,7 @@ function Products() {
       <h2>Products</h2>
       <div className='row'>
         {proArr.map((item, index) =>
-          <div className='col-sm-12 col-md-6 col-lg-3' key={index}>
+          <div className='col-xs-12 col-sm-6 col-md-4 col-lg-3' key={index}>
             <ProductItem item={item}/>
           </div>
         )}

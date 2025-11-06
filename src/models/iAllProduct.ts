@@ -1,6 +1,13 @@
+import { Meta as iUserMeta } from "./iUser"
+
 export interface iAllProduct {
   meta: Meta
   data: iProduct[]
+}
+
+export interface iSingleProduct {
+  meta: iUserMeta
+  data: iProduct
 }
 
 export interface Meta {
