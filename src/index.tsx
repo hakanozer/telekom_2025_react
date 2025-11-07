@@ -10,7 +10,7 @@ import Control from './pages/Control';
 import Likes from './pages/Likes';
 import ProductDetail from './pages/ProductDetail';
 import Users from './pages/Users';
-
+import Search from './pages/Search';
 
 
 const routes = 
@@ -22,6 +22,7 @@ const routes =
     <Route path='/likes' element={<Control item={<Likes />} />} />
     <Route path='/productDetail/:id' element={<Control item={<ProductDetail />} />} />
     <Route path='/users' element={<Control item={<Users />} />} />
+    <Route path='/search' element={<Control item={<Search />} />} />
   </Routes>
 </BrowserRouter>
 
