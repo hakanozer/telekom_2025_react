@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useRef, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { isValidEmail } from '../utils/valids'
 import { ToastContainer, toast } from 'react-toastify';
@@ -6,6 +6,10 @@ import { userLogin } from '../services/userService';
 import { apiConfig } from '../services/apiConfig';
 
 function Login() {
+
+  // refs
+  const emailRef = useRef<HTMLInputElement>(null)
+  const passwordRef = useRef<HTMLInputElement>(null)
 
   const navigate = useNavigate()
 
@@ -15,8 +19,10 @@ function Login() {
     evt.preventDefault()
     if (!isValidEmail(email)) {
       toast.error('Email format fail!')
+      emailRef.current?.focus()
     }else if(password.length < 5) {
       toast.error('Password fail')
+      passwordRef.current?.focus()
     }else {
       // service call
       userLogin(email, password)
@@ -45,10 +51,10 @@ function Login() {
           <h2>User Login</h2>
           <form onSubmit={sendLogin}>
             <div className='mb-3'>
-              <input value={email} onChange={(evt) => setEmail(evt.target.value)} type='email' className='form-control' placeholder='E-Mail' />
+              <input ref={emailRef} value={email} onChange={(evt) => setEmail(evt.target.value)} type='email' className='form-control' placeholder='E-Mail' />
             </div>
             <div className='mb-3'>
-              <input value={password} onChange={(evt) => setPassword(evt.target.value)}  type='password' className='form-control' placeholder='Password' />
+              <input ref={passwordRef} value={password} onChange={(evt) => setPassword(evt.target.value)}  type='password' className='form-control' placeholder='Password' />
             </div>
             <div className='d-flex justify-content-between'>
               <button className='btn btn-success'>Login</button>

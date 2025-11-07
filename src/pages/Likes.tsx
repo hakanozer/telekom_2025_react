@@ -4,16 +4,16 @@ import { singleProduct } from '../services/productService';
 import { iProduct } from '../models/iAllProduct';
 import axios from 'axios';
 import ProductItem from '../components/ProductItem';
+import { useLikesStore } from '../store/useLikesStore';
 
 function Likes() {
 
   const [proArr, setproArr] = useState<iProduct[]>([])
+  const { likesArr } = useLikesStore()
 
   useEffect(() => {
-    const arr = likesArrControl()
-    if (arr) {
-
-      axios.all(arr.map(id => singleProduct(id))).then(ress => {
+   
+      axios.all(likesArr.map(id => singleProduct(id))).then(ress => {
         const newArr:iProduct[] = []
         ress.map(res => {
           const dt = res.data
@@ -22,7 +22,6 @@ function Likes() {
         setproArr(newArr)
       })
 
-    }
   }, [])
   
   
