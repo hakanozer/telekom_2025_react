@@ -18,6 +18,7 @@ function Users() {
   console.log("🌀 Component render oldu")
 
   const [users, setUsers] = useState<SingleUser[]>([])
+  const [selectUser, setSelectUser] = useState<SingleUser>()
   useEffect(() => {
     allUser().then(res => {
       const dt = res.data
@@ -52,7 +53,7 @@ function Users() {
         <tbody>
 
           {users.map((item, index) => 
-            <tr role='button' key={index}>
+            <tr onClick={() => setSelectUser(item)} data-bs-toggle="modal" data-bs-target="#exampleModal" role='button' key={index}>
               <th scope="row">{item.id}</th>
               <td>
                 <img style={{width: 88,}} src={item.profile} className='img-thumbnail rounded-circle' />
@@ -65,6 +66,94 @@ function Users() {
           
         </tbody>
       </table>
+
+      <div
+  className="modal fade"
+  id="exampleModal"
+  tabIndex={-1}
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div className="modal-dialog modal-dialog-centered">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="exampleModalLabel">
+          {selectUser?.name} ({selectUser?.username})
+        </h1>
+        <button
+          type="button"
+          className="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div className="modal-body">
+        <div className="text-center mb-3">
+          <img
+            src={selectUser?.profile}
+            alt={selectUser?.name}
+            className="img-thumbnail rounded-circle"
+            width={120}
+            height={120}
+          />
+        </div>
+
+        <ul className="list-group text-start">
+          <li className="list-group-item">
+            <strong>Email:</strong> {selectUser?.email}
+          </li>
+          <li className="list-group-item">
+            <strong>Phone:</strong> {selectUser?.phone}
+          </li>
+          <li className="list-group-item">
+            <strong>Website:</strong>{" "}
+            <a href={`https://${selectUser?.website}`} target="_blank" rel="noreferrer">
+              {selectUser?.website}
+            </a>
+          </li>
+          <li className="list-group-item">
+            <strong>Role:</strong> {selectUser?.role}
+          </li>
+
+          <li className="list-group-item">
+            <strong>Address:</strong>
+            <br />
+            {selectUser?.address?.street}, {selectUser?.address?.suite}
+            <br />
+            {selectUser?.address?.city} / {selectUser?.address?.zipcode}
+            <br />
+            <small>
+              Lat: {selectUser?.address?.geo?.lat}, Lng: {selectUser?.address?.geo?.lng}
+            </small>
+          </li>
+
+          <li className="list-group-item">
+            <strong>Company:</strong>
+            <br />
+            {selectUser?.company?.name}
+            <br />
+            <em>{selectUser?.company?.catchPhrase}</em>
+            <br />
+            <small>{selectUser?.company?.bs}</small>
+          </li>
+        </ul>
+      </div>
+
+      <div className="modal-footer">
+        <button
+          type="button"
+          className="btn btn-secondary btn-sm"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
     </>
   )
 }
