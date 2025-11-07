@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { singleProduct } from '../services/productService'
 import { iSingleProduct } from '../models/iAllProduct'
-import { likesControl, likeStoreAddRemove } from '../utils/likesStore'
+import { likesArrControl, likesControl, likeStoreAddRemove } from '../utils/likesStore'
+import { useLikesStore } from '../store/useLikesStore'
 
 function ProductDetail() {
+
+  const { changeLikesArr } = useLikesStore()
   
   const [likeIcon, setLikeIcon] = useState(false)
   const [item, setItem] = useState<iSingleProduct>()
@@ -39,6 +42,10 @@ function ProductDetail() {
   const likesStoreControl = (id: string) => {
     const likesStatus = likesControl(id)
     setLikeIcon(likesStatus)
+    const arr = likesArrControl()
+    if (arr) {
+      changeLikesArr(arr)
+    }
   }
 
   

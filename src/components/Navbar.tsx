@@ -1,9 +1,11 @@
 import React from 'react'
 import { userLogout } from '../services/userService'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { useLikesStore } from '../store/useLikesStore';
 
 function Navbar(props: {name: string}) {
 
+  const { likesArr } = useLikesStore();
   const navigate = useNavigate()  
   const logout = () => {
     const answer = window.confirm("Are you sure logout!")
@@ -14,6 +16,8 @@ function Navbar(props: {name: string}) {
         })
     }
   }
+
+  
     
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -42,7 +46,7 @@ function Navbar(props: {name: string}) {
             </ul>
             </li>
             <li className="nav-item">
-            <a className="nav-link disabled" aria-disabled="true">Sn. {props.name}</a>
+            <a className="nav-link disabled" aria-disabled="true">Sn. {props.name} - ({likesArr.length})</a>
             </li>
         </ul>
         <form className="d-flex" role="search">
